@@ -1,24 +1,21 @@
 import ArgumentParser
 
 struct Repeat: ParsableCommand {
-    @Option(help: "The number of times to repeat 'phrase'.")
-    var count: Int?
-
-    @Flag(help: "Include a counter with each repetition.")
-    var includeCounter = false
-
-    @Argument(help: "The phrase to repeat.")
-    var phrase: String
+    @Option(help: "Where on the body the augmentation should be placed. forearm")
+    var placement: String?
+    
+    @Option(help: "Weight of the augmentation in lbs.")
+    var weight: Float?
 
     mutating func run() throws {
-        let repeatCount = count ?? .max
-
-        for i in 1...repeatCount {
-            if includeCounter {
-                print("\(i): \(phrase)")
-            } else {
-                print(phrase)
-            }
+        let theWeight = weight ?? 50;
+        let thePlacement = placement ?? "forearm";
+        
+        if (theWeight < 0.5) {
+            print("Wearable fits on the " + thePlacement);
+        }
+        else {
+            print("No data supporting placement of the wearable so heavy on that location. Weight: " + String(theWeight) + " Placement: " + thePlacement);
         }
     }
 }
