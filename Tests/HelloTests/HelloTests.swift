@@ -2,6 +2,42 @@ import XCTest
 import class Foundation.Bundle
 
 final class HelloTests: XCTestCase {
+    // The case where no arguments are supplied
+    func testEmpty() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct
+        // results.
+
+        // Some of the APIs that we use below are available in macOS 10.13 and above.
+        guard #available(macOS 10.13, *) else {
+            return
+        }
+
+        // Mac Catalyst won't have `Process`, but it is supported for executables.
+        #if !targetEnvironment(macCatalyst)
+
+        let fooBinary = productsDirectory.appendingPathComponent("Hello")
+
+        let process = Process()
+        process.executableURL = fooBinary
+
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        
+        process.arguments = []
+
+        try process.run()
+        process.waitUntilExit()
+
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)
+        
+        // Should contain Usage instructions
+        XCTAssertTrue(((output?.contains("USAGE:")) != nil))
+
+        #endif
+    }
+    
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

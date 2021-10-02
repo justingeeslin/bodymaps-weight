@@ -10,43 +10,34 @@ enum Placement: String, ExpressibleByArgument {
 
 struct Bodymap: ParsableCommand {
     @Option(help: "Where on the body the augmentation should be placed.")
-    var placement: Placement?
+    var placement: Placement
     
     @Option(help: "Weight of the augmentation in lbs.")
-    var weight: Float?
+    var weight: Float
 
     mutating func run() throws {
-        let theWeight = weight ?? 50;
-        let thePlacement = placement ?? Placement.forearm;
         
-        switch thePlacement {
+        switch placement {
         case .forearm :
             
-            switch theWeight {
+            switch weight {
             case 0..<51:
-                print("Wearable of " + theWeight.description + " lbs fits on the " + thePlacement.rawValue);
+                print("Wearable of " + weight.description + " lbs fits on the " + placement.rawValue);
                 Bodymap.exit(withError: nil)
             default :
-                print("No data supporting placement of the wearable so heavy on that location. Weight: " + String(theWeight) + " Placement: " + thePlacement.rawValue);
+                print("No data supporting placement of the wearable so heavy on that location. Weight: " + String(weight) + " Placement: " + placement.rawValue);
                 _exit(1)
             }
         case .waist :
-            switch theWeight {
+            switch weight {
             case 50:
-                print("Wearable fits on the " + thePlacement.rawValue);
+                print("Wearable fits on the " + placement.rawValue);
             default :
-                print("No data supporting placement of the wearable so heavy on that location. Weight: " + String(theWeight) + " Placement: " + thePlacement.rawValue);
+                print("No data supporting placement of the wearable so heavy on that location. Weight: " + String(weight) + " Placement: " + placement.rawValue);
             }
         default:
-            print("Placement unsupported. Placement " + thePlacement.rawValue);
+            print("Placement unsupported. Placement " + placement.rawValue);
             break
-            
-        }
-        
-        if (theWeight < 0.5) {
-            
-        }
-        else {
             
         }
     }
