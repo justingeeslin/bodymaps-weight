@@ -34,6 +34,7 @@ final class HelloTests: XCTestCase {
         
         // Should contain Usage instructions
         XCTAssertTrue(((output?.contains("USAGE:")) != nil))
+        XCTAssertEqual(process.terminationStatus, 64)
 
         #endif
     }
@@ -70,7 +71,8 @@ final class HelloTests: XCTestCase {
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
 
-        XCTAssertEqual(output, "Wearable of 50.0 lbs fits on the forearm\n")
+        // Should fit as represented by the zero exit code
+        XCTAssertEqual(process.terminationStatus, 0)
         #endif
     }
 
