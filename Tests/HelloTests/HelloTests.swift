@@ -22,6 +22,11 @@ final class HelloTests: XCTestCase {
 
         let pipe = Pipe()
         process.standardOutput = pipe
+        
+        process.arguments = [
+            "--placement", "forearm",
+           "--weight", "50"
+        ]
 
         try process.run()
         process.waitUntilExit()
@@ -29,7 +34,7 @@ final class HelloTests: XCTestCase {
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
 
-        XCTAssertEqual(output, "Hello, world!\n")
+        XCTAssertEqual(output, "Wearable of 50.0 lbs fits on the forearm\n")
         #endif
     }
 

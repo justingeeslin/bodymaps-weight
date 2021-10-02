@@ -1,4 +1,5 @@
 import ArgumentParser
+import Darwin
 
 // A great way to manage what the string arguments are.. with enums
 enum Placement: String, ExpressibleByArgument {
@@ -22,10 +23,12 @@ struct Bodymap: ParsableCommand {
         case .forearm :
             
             switch theWeight {
-            case 0..<50:
-                print("Wearable fits on the " + thePlacement.rawValue);
+            case 0..<51:
+                print("Wearable of " + theWeight.description + " lbs fits on the " + thePlacement.rawValue);
+                Bodymap.exit(withError: nil)
             default :
                 print("No data supporting placement of the wearable so heavy on that location. Weight: " + String(theWeight) + " Placement: " + thePlacement.rawValue);
+                _exit(1)
             }
         case .waist :
             switch theWeight {
