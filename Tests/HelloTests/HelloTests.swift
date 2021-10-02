@@ -39,7 +39,7 @@ final class HelloTests: XCTestCase {
         #endif
     }
     
-    func testExample() throws {
+    func testForearmWeightFits() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
